@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>NPS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div
+    class="ion-padding ion-display-flex ion-flex-column ion-justify-content-between hp-100"
+  >
+    <ion-input
+      autocomplete="tel"
+      fill="solid"
+      inputmode="tel"
+      label="Mobile Number"
+      labelPlacement="stacked"
+      placeholder="9876543210"
+      type="tel"
+    ></ion-input>
+
+    <ion-button (click)="onSubmit()">Get OTP</ion-button>
+  </div>
+</ion-content>
