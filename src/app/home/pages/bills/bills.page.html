@@ -1,0 +1,48 @@
+<ion-content [fullscreen]="true">
+  <ion-segment value="SALE" (ionChange)="onSegmentChange($event.detail.value)">
+    <ion-segment-button value="SALE" contentId="SALE">
+      <ion-label>Sale</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="PURCHASE" contentId="PURCHASE">
+      <ion-label>Purchase</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment-view>
+    <ion-segment-content id="SALE">
+      <ng-container *ngTemplateOutlet="billList"></ng-container>
+    </ion-segment-content>
+
+    <ion-segment-content id="PURCHASE">
+      <ng-container *ngTemplateOutlet="billList"></ng-container>
+    </ion-segment-content>
+  </ion-segment-view>
+
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="navigateToCreateBill()">
+      <ion-icon name="receipt"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ng-template #billList>
+    @if (bills.length === 0) {
+    <div class="ion-text-center ion-padding">
+      <ion-text color="medium">No bills found.</ion-text>
+    </div>
+    } @else {
+    <ion-list>
+      @for (bill of bills; track bill.id) {
+      <ion-item (click)="navigateToBillDetail(bill.id)">
+        <ion-label>
+          <ion-text>{{ bill.party.name }}</ion-text>
+          <p>{{ bill.createdAt | relativeTime }}</p>
+        </ion-label>
+        <ion-text slot="end"
+          ><strong>₹{{ bill.amount }}</strong></ion-text
+        >
+      </ion-item>
+      }
+    </ion-list>
+    }
+  </ng-template>
+</ion-content>

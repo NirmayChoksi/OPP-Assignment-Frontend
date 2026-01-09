@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      {{ transactionType === 'YOU_GAVE' ? 'You Gave' : 'You Got' }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if (form) {
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="form"
+    class="ion-padding ion-display-flex ion-flex-column ion-justify-content-between hp-100"
+  >
+    <div class="ion-display-flex ion-flex-column gap-24">
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          formControlName="amount"
+          type="number"
+          fill="solid"
+          label="Amount"
+          labelPlacement="stacked"
+          placeholder="0"
+          inputmode="decimal"
+        ></ion-input>
+
+        @if(form.controls['amount'].invalid && form.controls['amount'].touched){
+        <ion-note color="danger">Amount is required and must be greater than zero.</ion-note>
+        }
+      </div>
+
+      <ion-input
+        formControlName="note"
+        type="text"
+        fill="solid"
+        label="Note (optional)"
+        labelPlacement="stacked"
+        placeholder="Enter note..."
+      ></ion-input>
+    </div>
+
+    <ion-button expand="block" shape="round" type="submit" [disabled]="form.invalid"> Submit </ion-button>
+  </form>
+
+  } @else {
+  <div class="ion-padding ion-text-center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <ion-text color="medium">Loading...</ion-text>
+  </div>
+  }
+</ion-content>

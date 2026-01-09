@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ mode === 'add' ? 'Add Product' : 'Edit Product' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  @if (form) {
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="form"
+    class="ion-padding ion-display-flex ion-flex-column ion-justify-content-between hp-100"
+  >
+    <div class="ion-display-flex ion-flex-column gap-24">
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          fill="solid"
+          formControlName="name"
+          inputmode="text"
+          label="Product Name"
+          labelPlacement="stacked"
+          placeholder="Enter product name"
+          type="text"
+        ></ion-input>
+
+        @if (name?.invalid && name?.touched) {
+        <ion-note color="danger">Product name is required.</ion-note>
+        }
+      </div>
+
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          fill="solid"
+          formControlName="quantity"
+          type="number"
+          inputmode="numeric"
+          label="Quantity"
+          labelPlacement="stacked"
+          placeholder="1"
+        ></ion-input>
+
+        @if (quantity?.invalid && quantity?.touched) {
+        <ion-note color="danger">Quantity must be at least 1.</ion-note>
+        }
+      </div>
+
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          fill="solid"
+          formControlName="price"
+          type="number"
+          label="Price (₹)"
+          labelPlacement="stacked"
+          placeholder="0.00"
+        ></ion-input>
+        @if (price?.invalid && price?.touched) {
+        <ion-note color="danger">Price must be greater than zero.</ion-note>
+        }
+      </div>
+    </div>
+
+    <ion-button expand="block" shape="round" type="submit" [disabled]="form.invalid"> Submit </ion-button>
+  </form>
+
+  } @else {
+  <div class="ion-padding ion-text-center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <ion-text color="medium">Loading...</ion-text>
+  </div>
+  }
+</ion-content>

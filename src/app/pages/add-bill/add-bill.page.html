@@ -1,0 +1,85 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize"> Add {{ selectedType }} Bill </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (form) {
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="form"
+    class="ion-padding ion-display-flex ion-flex-column ion-justify-content-between hp-100"
+  >
+    <div class="ion-display-flex ion-flex-column gap-24">
+      <!-- Party Select -->
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-select
+          fill="solid"
+          formControlName="partyId"
+          label="Select Party"
+          labelPlacement="stacked"
+          interface="popover"
+          placeholder="Choose a party"
+        >
+          @for (party of parties; track party.partyId) {
+          <ion-select-option [value]="party.partyId"> {{ party.name }} ({{ party.contactNumber }}) </ion-select-option>
+          }
+        </ion-select>
+      </div>
+
+      <!-- Bill Type (already set through route but preserved for display) -->
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input fill="solid" label="Bill Type" labelPlacement="stacked" [value]="selectedType" disabled></ion-input>
+      </div>
+
+      <!-- Bill Items -->
+      <div>
+        <ion-label class="ion-text-uppercase" color="medium" style="font-size: 0.9em">Products:</ion-label>
+
+        <ion-list formArrayName="items">
+          @for (item of items.controls; let i = $index;track i) {
+          <div [formGroupName]="i">
+            <ion-item>
+              <ion-select formControlName="productId" label="Product">
+                <ion-select-option *ngFor="let product of products" [value]="product.id">
+                  {{ product.name }}
+                </ion-select-option>
+              </ion-select>
+
+              <ion-input formControlName="quantity" type="number" min="1" placeholder="Quantity"></ion-input>
+
+              <ion-button fill="clear" (click)="removeItem(i)" color="danger"> Remove </ion-button>
+            </ion-item>
+          </div>
+          }
+        </ion-list>
+
+        <ion-button expand="block" color="secondary" (click)="addItem()"> + Add Product </ion-button>
+      </div>
+
+      <!-- Bill Note -->
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          fill="solid"
+          formControlName="note"
+          type="text"
+          label="Note (optional)"
+          labelPlacement="stacked"
+          placeholder="Any additional notes"
+        ></ion-input>
+      </div>
+    </div>
+
+    <ion-button expand="block" shape="round" type="submit" [disabled]="form.invalid"> Submit </ion-button>
+  </form>
+  } @else {
+  <div class="ion-padding ion-text-center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <ion-text color="medium">Loading...</ion-text>
+  </div>
+  }
+</ion-content>

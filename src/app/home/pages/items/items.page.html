@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true" class="ion-padding relative">
+  <!-- Loading or Empty State -->
+  @if (products.length === 0) {
+  <div class="ion-text-center ion-margin-top">
+    <ion-text color="medium">No products available</ion-text>
+  </div>
+  }
+
+  <!-- Product List with Swipeable Actions -->
+  <ion-list>
+    @for (product of products; track $index) {
+    <ion-item-sliding>
+      <ion-item button detail="true" (click)="openProductDetail(product)">
+        <ion-label>
+          <h2 class="name">{{ product.name }}</h2>
+          <p class="sub-info">Qty: {{ product.quantity }}</p>
+        </ion-label>
+        <ion-text slot="end" class="price">₹ {{ product.price | number : '1.0-2' }}</ion-text>
+      </ion-item>
+
+      <!-- Swipe Actions -->
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="editProduct(product)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+
+        <ion-item-option color="danger" (click)="deleteProduct(product)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    }
+  </ion-list>
+
+  <!-- Floating Action Button -->
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button color="primary" (click)="addProduct()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

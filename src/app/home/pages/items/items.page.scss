@@ -1,0 +1,29 @@
+ion-item-sliding {
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+
+ion-item {
+  --background: var(--ion-color-light);
+  border-radius: 12px;
+  --inner-padding-start: 16px;
+  --inner-padding-end: 16px;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+  margin: 0;
+}
+
+.sub-info {
+  font-size: 0.8rem;
+  color: var(--ion-color-medium);
+  margin-top: 2px;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: 600;
+}

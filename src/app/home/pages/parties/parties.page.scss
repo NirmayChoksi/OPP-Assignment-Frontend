@@ -1,0 +1,68 @@
+ion-segment-view {
+  height: calc(100% - 48px);
+}
+
+.page-container {
+  position: relative;
+}
+
+/* Summary Card */
+.summary-card {
+  border-radius: 12px;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: var(--ion-color-medium);
+}
+
+.amount {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background-color: var(--ion-color-light);
+}
+
+/* Party List */
+.party-list {
+  padding-top: 8px;
+}
+
+.party-item {
+  border-radius: 12px;
+  margin-bottom: 12px;
+  --background-hover: var(--ion-color-light-shade);
+}
+
+.left .name {
+  font-weight: bold;
+  color: var(--ion-color-dark);
+}
+
+.left .time {
+  font-size: 0.75rem;
+  color: var(--ion-color-medium);
+}
+
+.balance {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* FAB customization */
+ion-fab-button {
+  --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}

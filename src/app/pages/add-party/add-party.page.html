@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize"> Add {{ selectedType === 'CUSTOMER' ? 'Customer' : 'Supplier' }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (form) {
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="form"
+    class="ion-padding ion-display-flex ion-flex-column ion-justify-content-between hp-100"
+  >
+    <div class="ion-display-flex ion-flex-column gap-24">
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          fill="solid"
+          formControlName="name"
+          inputmode="text"
+          label="Name"
+          labelPlacement="stacked"
+          placeholder="Enter name"
+          type="text"
+        ></ion-input>
+
+        @if (name?.invalid && name?.touched) {
+        <ion-note color="danger">Name is required.</ion-note>
+        }
+      </div>
+
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          fill="solid"
+          formControlName="contactNumber"
+          type="tel"
+          inputmode="tel"
+          label="Contact Number"
+          labelPlacement="stacked"
+          maxlength="10"
+          placeholder="9876543210"
+        ></ion-input>
+
+        @if (contactNumber?.invalid && contactNumber?.touched) {
+        <ion-note color="danger">Enter a valid 10-digit number.</ion-note>
+        }
+      </div>
+
+      <div class="ion-display-flex ion-flex-column gap-2">
+        <ion-input
+          fill="solid"
+          formControlName="gstNumber"
+          type="text"
+          label="GST Number"
+          labelPlacement="stacked"
+          placeholder="Enter GST number (optional)"
+        ></ion-input>
+      </div>
+    </div>
+
+    <ion-button expand="block" shape="round" type="submit" [disabled]="form.invalid"> Submit </ion-button>
+  </form>
+
+  } @else {
+  <div class="ion-padding ion-text-center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <ion-text color="medium">Loading...</ion-text>
+  </div>
+  }
+</ion-content>

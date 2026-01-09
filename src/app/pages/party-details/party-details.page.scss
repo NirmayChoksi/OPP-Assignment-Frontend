@@ -1,0 +1,58 @@
+.name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+ion-chip {
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+ion-item-divider {
+  background: var(--ion-color-light);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 15px;
+  color: #666;
+}
+
+ion-item {
+  --border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+ion-avatar.you-gave ion-icon {
+  color: var(--ion-color-danger);
+}
+
+ion-avatar.you-got ion-icon {
+  color: var(--ion-color-success);
+}
+
+.time {
+  font-size: 0.7rem;
+  color: var(--ion-color-medium);
+}
+
+.bottom-actions {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  background: var(--ion-color-light);
+  border-top: 1px solid #e5e5e5;
+  z-index: 10;
+}
+
+.bottom-actions ion-button {
+  flex: 1;
+  font-weight: 600;
+  height: 48px;
+}
+
+.bottom-offset {
+  padding-bottom: 85px !important;
+}

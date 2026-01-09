@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ partyDetail?.name || 'Loading...' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding bottom-offset">
+  @if (partyDetail) {
+
+  <ion-card>
+    <ion-card-content class="ion-text-center">
+      <h2 class="name">{{ partyDetail.name }}</h2>
+      <ion-chip [color]="partyDetail.type === 'CUSTOMER' ? 'success' : 'warning'">
+        <ion-label>{{ partyDetail.type }}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item-divider>
+    <ion-label>Transactions</ion-label>
+  </ion-item-divider>
+
+  <ion-list lines="inset">
+    @for (transaction of partyDetail.transactions; track $index) {
+    <ion-item>
+      <ion-avatar
+        slot="start"
+        [class.you-gave]="transaction.type === 'YOU_GAVE'"
+        [class.you-got]="transaction.type === 'YOU_GOT'"
+      >
+        <ion-icon
+          [name]="transaction.type === 'YOU_GAVE' ? 'arrow-up-circle' : 'arrow-down-circle'"
+          size="large"
+        ></ion-icon>
+      </ion-avatar>
+
+      <ion-label>
+        <h3 class="ion-text-capitalize">
+          <ion-text [color]="transaction.type === 'YOU_GAVE' ? 'danger' : 'success'">
+            {{ transaction.type === 'YOU_GAVE' ? 'You Gave' : 'You Got' }}
+          </ion-text>
+          <span> — ₹{{ transaction.amount | number }}</span>
+        </h3>
+        <p>{{ transaction.note || 'Auto-generated' }}</p>
+        <small class="time">{{ transaction.createdAt | relativeTime }}</small>
+      </ion-label>
+    </ion-item>
+    }
+  </ion-list>
+  <div class="bottom-actions fixed">
+    <ion-button expand="block" color="danger" (click)="onYouGave()"> You Gave </ion-button>
+
+    <ion-button expand="block" color="success" (click)="onYouGot()"> You Got </ion-button>
+  </div>
+  } @else {
+  <ion-spinner name="crescent"></ion-spinner>
+  <ion-text color="medium">Loading party details...</ion-text>
+  }
+</ion-content>
