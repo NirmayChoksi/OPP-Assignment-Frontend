@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">NPS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (form) {
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="form"
+    class="ion-padding ion-display-flex ion-flex-column ion-justify-content-between gap-32 hp-100"
+  >
+    <!-- Mobile Input Field -->
+    <div class="ion-display-flex ion-flex-column gap-8">
+      <ion-input
+        fill="solid"
+        formControlName="contactNumber"
+        type="tel"
+        label="Mobile Number"
+        labelPlacement="stacked"
+        inputmode="tel"
+        autocomplete="tel"
+        placeholder="9876543210"
+      ></ion-input>
+
+      @if (contactNumber?.invalid && contactNumber?.touched) {
+      <ion-note color="danger" class="ion-padding-start">Please enter a valid 10-digit mobile number.</ion-note>
+      }
+    </div>
+
+    <!-- Submit Button -->
+    <ion-button expand="block" shape="round" [disabled]="form.invalid" type="submit"> Get OTP </ion-button>
+  </form>
+  } @else {
+  <div class="ion-padding ion-text-center hp-100 ion-display-flex ion-justify-content-center ion-align-items-center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <ion-text color="medium" class="ion-margin-top">Loading...</ion-text>
+  </div>
+  }
+</ion-content>

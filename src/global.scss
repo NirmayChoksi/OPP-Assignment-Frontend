@@ -34,4 +34,15 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+// @import "@ionic/angular/css/palettes/dark.system.css";
+
+@import url("./theme/gap.scss");
+@import url("./theme/height.scss");
+@import url("./theme/position.scss");
+@import url("./theme/variables.scss");
+@import url("./theme/width.scss");
+
+.vertical-divider {
+  width: 1px;
+  background-color: var(--ion-background-color-step-500);
+}

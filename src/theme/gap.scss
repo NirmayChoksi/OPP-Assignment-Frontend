@@ -1,0 +1,17 @@
+@use "sass:map";
+
+$gap-values: ();
+@for $i from 0 through 100 {
+  $gap-values: map.merge(
+    $gap-values,
+    (
+      $i: $i * 1px,
+    )
+  );
+}
+
+@each $key, $value in $gap-values {
+  .gap-#{$key} {
+    gap: $value !important;
+  }
+}

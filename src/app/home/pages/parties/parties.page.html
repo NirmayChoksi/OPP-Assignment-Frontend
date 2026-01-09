@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true" class="ion-no-padding">
+  <ion-segment value="CUSTOMERS" (ionChange)="onSegmentChange($event.detail.value)">
+    <ion-segment-button value="CUSTOMERS" contentId="CUSTOMERS">
+      <ion-label>CUSTOMERS</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="SUPPLIERS" contentId="SUPPLIERS">
+      <ion-label>SUPPLIERS</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ng-template #partyContent let-data>
+    <div class="page-container ion-padding ion-display-flex ion-flex-column gap-16 hp-100">
+      <ion-card class="summary-card">
+        <ion-card-content>
+          <div class="ion-display-flex ion-justify-content-between ion-align-items-center wp-100">
+            <div class="summary-item">
+              <ion-text class="label">You Get</ion-text>
+              <ion-text color="success" class="amount"> ₹ {{ data.totalYouGot | number : '1.0-0' }} </ion-text>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="summary-item">
+              <ion-text class="label">You Give</ion-text>
+              <ion-text color="danger" class="amount"> ₹ {{ data.totalYouGave | number : '1.0-0' }} </ion-text>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-list class="party-list ion-flex-1">
+        @for (party of data.parties; track $index) {
+        <ion-item button detail="true" class="party-item" (click)="navigateToPartyDetail(party.partyId)">
+          <div class="ion-display-flex ion-justify-content-between wp-100 ion-align-items-center">
+            <div class="left">
+              <ion-text class="name">{{ party.name }}</ion-text>
+              <p class="time">{{ party.lastTransactionAt | relativeTime }}</p>
+            </div>
+            <ion-text class="balance" [color]="party.balance > 0 ? 'danger' : 'success'">
+              ₹ {{ party.balance | abs }}
+            </ion-text>
+          </div>
+        </ion-item>
+        }
+      </ion-list>
+    </div>
+  </ng-template>
+
+  <ion-segment-view>
+    <ion-segment-content id="CUSTOMERS">
+      <ng-container *ngTemplateOutlet="partyContent; context: { $implicit: parties }"></ng-container>
+    </ion-segment-content>
+    <ion-segment-content id="SUPPLIERS">
+      <ng-container *ngTemplateOutlet="partyContent; context: { $implicit: parties }"></ng-container>
+    </ion-segment-content>
+  </ion-segment-view>
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button color="tertiary" (click)="downloadTransactions()">
+      <ion-icon name="download-outline"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button color="primary" (click)="navigateToAddParty()">
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
